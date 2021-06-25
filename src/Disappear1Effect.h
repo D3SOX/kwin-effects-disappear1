@@ -37,8 +37,8 @@ public:
     void reconfigure(ReconfigureFlags flags) override;
     int requestedEffectChainPosition() const override;
 
-    void prePaintScreen(KWin::ScreenPrePaintData& data, int time) override;
-    void prePaintWindow(KWin::EffectWindow* w, KWin::WindowPrePaintData& data, int time) override;
+    void prePaintScreen(KWin::ScreenPrePaintData& data, std::chrono::milliseconds time) override;
+    void prePaintWindow(KWin::EffectWindow* w, KWin::WindowPrePaintData& data, std::chrono::milliseconds time) override;
     void paintWindow(KWin::EffectWindow* w, int mask, QRegion region, KWin::WindowPaintData& data) override;
     void postPaintScreen() override;
 

@@ -60,12 +60,12 @@ void Disappear1Effect::reconfigure(ReconfigureFlags flags)
     m_scale = Disappear1Config::scale();
 }
 
-void Disappear1Effect::prePaintScreen(KWin::ScreenPrePaintData& data, int time)
+void Disappear1Effect::prePaintScreen(KWin::ScreenPrePaintData& data, std::chrono::milliseconds time)
 {
     auto it = m_animations.begin();
     while (it != m_animations.end()) {
         Timeline& t = it.value();
-        t.update(time);
+        t.update(time.count());
         if (t.done()) {
             KWin::EffectWindow* w = it.key();
             w->unrefWindow();
@@ -82,7 +82,7 @@ void Disappear1Effect::prePaintScreen(KWin::ScreenPrePaintData& data, int time)
     KWin::effects->prePaintScreen(data, time);
 }
 
-void Disappear1Effect::prePaintWindow(KWin::EffectWindow* w, KWin::WindowPrePaintData& data, int time)
+void Disappear1Effect::prePaintWindow(KWin::EffectWindow* w, KWin::WindowPrePaintData& data, std::chrono::milliseconds time)
 {
     if (m_animations.contains(w)) {
         w->enablePainting(KWin::EffectWindow::PAINT_DISABLED_BY_DELETE);
